@@ -3,7 +3,7 @@ name = "excel-mcp"
 version = "0.1.0"
 description = "Safe Excel workbook operations exposed through MCP"
 requires-python = ">=3.12"
-dependencies = ["mcp>=1.28,<2", "pydantic>=2.7", "openpyxl>=3.1", "pandas>=2.2"]
+dependencies = ["mcp>=2,<3", "pydantic>=2.7", "openpyxl>=3.1", "pandas>=2.2"]
 
 [build-system]
 requires = ["hatchling"]

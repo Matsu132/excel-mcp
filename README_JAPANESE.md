@@ -129,6 +129,6 @@ uv run ruff check .
 uv run mypy src
 ```
 
-## SDKについて
+## MCP SDKについて
 
-現在は公式MCP Python SDKのv1系APIである`FastMCP`と`@mcp.tool()`を使用し、`mcp>=1.28,<2`に固定しています。SDK v2への移行は、MCPクライアントとの互換性とtransportの動作を確認したうえで行う予定です。
+本プロジェクトは公式MCP Python SDK v2を使用しています。サーバーは`MCPServer`と`@mcp.tool()`で構成され、ローカルMCPクライアント向けの標準transportはstdioです。詳しくは[公式v2ドキュメント](https://py.sdk.modelcontextprotocol.io/)を参照してください。

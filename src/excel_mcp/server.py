@@ -3,12 +3,12 @@ from __future__ import annotations
 from typing import Any, cast
 
 import pandas as pd
-from mcp.server.fastmcp import FastMCP
+from mcp.server import MCPServer
 
 from .domain import WorkbookRequest
 from .infrastructure import Audit, PreviewStore, WorkbookStore, Workspace, rows, sha256
 
-mcp = FastMCP("excel-mcp")
+mcp = MCPServer("excel-mcp")
 workspace = Workspace()
 store = WorkbookStore(workspace)
 previews = PreviewStore()
@@ -231,3 +231,7 @@ def _commit(pid: str) -> dict[str, Any]:
 
 def main() -> None:
     mcp.run()
+
+
+if __name__ == "__main__":
+    main()
