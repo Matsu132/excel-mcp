@@ -8,7 +8,25 @@ This is an MVP. It supports workbook inspection, sheet/schema discovery, reads, 
 
 Macro-enabled workbooks, external links, charts, formatting operations and non-`.xlsx` files are intentionally out of scope.
 
-## Installation
+## Quick start from GitHub
+
+You do not need to clone this repository. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) once, then configure your MCP client to run the latest version directly from GitHub.
+
+The command is:
+
+```sh
+uvx --from git+https://github.com/Matsu132/excel-mcp.git excel-mcp
+```
+
+The only local setting you need is the folder containing the Excel files:
+
+```text
+EXCEL_MCP_WORKSPACE=/Users/your-name/Documents/Excel
+```
+
+This keeps Excel data on your computer. The public GitHub repository provides the server code and dependencies; it does not upload your workbooks.
+
+## Developer installation
 
 ```sh
 uv sync
@@ -27,7 +45,7 @@ The server accepts only `.xlsx` files inside this directory. Relative paths are 
 This server uses MCP over stdio. The command to register in an MCP client is:
 
 ```sh
-uv run excel-mcp
+uvx --from git+https://github.com/Matsu132/excel-mcp.git excel-mcp
 ```
 
 For a direct local check:
@@ -48,11 +66,10 @@ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 {
   "mcpServers": {
     "excel-mcp": {
-      "command": "/absolute/path/to/project/.venv/bin/python",
-      "args": ["-m", "excel_mcp.server"],
+  "command": "uvx",
+      "args": ["--from", "git+https://github.com/Matsu132/excel-mcp.git", "excel-mcp"],
       "env": {
-        "EXCEL_MCP_WORKSPACE": "/absolute/path/to/workbooks",
-        "PYTHONPATH": "/absolute/path/to/project/src"
+        "EXCEL_MCP_WORKSPACE": "/Users/your-name/Documents/Excel"
       }
     }
   }
@@ -68,11 +85,10 @@ For an OpenAI application, Agent SDK, or other client that supports local MCP st
 ```json
 {
   "name": "excel-mcp",
-  "command": "/absolute/path/to/project/.venv/bin/python",
-  "args": ["-m", "excel_mcp.server"],
+  "command": "uvx",
+  "args": ["--from", "git+https://github.com/Matsu132/excel-mcp.git", "excel-mcp"],
   "env": {
-    "EXCEL_MCP_WORKSPACE": "/absolute/path/to/workbooks",
-    "PYTHONPATH": "/absolute/path/to/project/src"
+    "EXCEL_MCP_WORKSPACE": "/Users/your-name/Documents/Excel"
   }
 }
 ```
@@ -84,10 +100,9 @@ The exact configuration key varies by product. Use the product's local MCP or st
 Clients such as Cursor, VS Code MCP extensions, Cline, Windsurf, and MCP Inspector generally accept the same stdio definition. Use:
 
 ```text
-Command: /absolute/path/to/project/.venv/bin/python
-Arguments: -m excel_mcp.server
-Environment: EXCEL_MCP_WORKSPACE=/absolute/path/to/workbooks
-             PYTHONPATH=/absolute/path/to/project/src
+Command: uvx
+Arguments: --from git+https://github.com/Matsu132/excel-mcp.git excel-mcp
+Environment: EXCEL_MCP_WORKSPACE=/Users/your-name/Documents/Excel
 ```
 
 For MCP Inspector, run:

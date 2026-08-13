@@ -17,7 +17,25 @@
 
 MVPでは`.xlsx`のみ対応しています。`.xlsm`、外部リンク、チャート、書式変更、その他の非`.xlsx`ファイルは対象外です。
 
-## インストール
+## GitHubから直接使う（推奨）
+
+このリポジトリをcloneしたり、Pythonの依存パッケージを手動でインストールしたりする必要はありません。[uv](https://docs.astral.sh/uv/getting-started/installation/)を一度だけインストールし、MCPクライアントからGitHubのURLを指定して起動できます。
+
+起動コマンド：
+
+```sh
+uvx --from git+https://github.com/Matsu132/excel-mcp.git excel-mcp
+```
+
+設定が必要なのは、Excelファイルを置くローカルフォルダだけです。
+
+```text
+EXCEL_MCP_WORKSPACE=/Users/your-name/Documents/Excel
+```
+
+Excelファイルは利用者のPCから外へ送信されません。GitHubから取得するのはMCPサーバー本体と依存関係だけです。
+
+## 開発者向けインストール
 
 ```sh
 uv sync
@@ -36,7 +54,7 @@ Workspace外のファイルにはアクセスできません。相対パスはWo
 本サーバーはMCPのstdio transportを使用します。基本的な起動コマンドは次のとおりです。
 
 ```sh
-EXCEL_MCP_WORKSPACE="/absolute/path/to/workbooks" uv run excel-mcp
+EXCEL_MCP_WORKSPACE="/Users/your-name/Documents/Excel" uvx --from git+https://github.com/Matsu132/excel-mcp.git excel-mcp
 ```
 
 通常はMCPクライアント側にこのコマンドを登録します。クライアントがプロセスを自動起動・管理します。
@@ -57,11 +75,10 @@ macOSの設定ファイル：
 {
   "mcpServers": {
     "excel-mcp": {
-      "command": "/absolute/path/to/project/.venv/bin/python",
-      "args": ["-m", "excel_mcp.server"],
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/Matsu132/excel-mcp.git", "excel-mcp"],
       "env": {
-        "EXCEL_MCP_WORKSPACE": "/absolute/path/to/workbooks",
-        "PYTHONPATH": "/absolute/path/to/project/src"
+        "EXCEL_MCP_WORKSPACE": "/Users/your-name/Documents/Excel"
       }
     }
   }
@@ -77,11 +94,10 @@ OpenAIアプリケーション、Agent SDK、またはローカルMCP stdioサ�
 ```json
 {
   "name": "excel-mcp",
-  "command": "/absolute/path/to/project/.venv/bin/python",
-  "args": ["-m", "excel_mcp.server"],
+  "command": "uvx",
+  "args": ["--from", "git+https://github.com/Matsu132/excel-mcp.git", "excel-mcp"],
   "env": {
-    "EXCEL_MCP_WORKSPACE": "/absolute/path/to/workbooks",
-    "PYTHONPATH": "/absolute/path/to/project/src"
+    "EXCEL_MCP_WORKSPACE": "/Users/your-name/Documents/Excel"
   }
 }
 ```
@@ -93,10 +109,9 @@ OpenAIアプリケーション、Agent SDK、またはローカルMCP stdioサ�
 Cursor、VS CodeのMCP拡張、Cline、Windsurfなど、多くのMCPクライアントは同じstdio設定を利用できます。
 
 ```text
-Command: /absolute/path/to/project/.venv/bin/python
-Arguments: -m excel_mcp.server
-Environment: EXCEL_MCP_WORKSPACE=/absolute/path/to/workbooks
-             PYTHONPATH=/absolute/path/to/project/src
+Command: uvx
+Arguments: --from git+https://github.com/Matsu132/excel-mcp.git excel-mcp
+Environment: EXCEL_MCP_WORKSPACE=/Users/your-name/Documents/Excel
 ```
 
 MCP Inspectorで確認する場合：
