@@ -90,17 +90,17 @@ def _frame(path: str, sheet: str) -> pd.DataFrame:
 
 def _mask(series: pd.Series, operator: str, value: Any) -> pd.Series:
     if operator == "eq":
-        return series == value
+        return cast(pd.Series, series == value)
     if operator == "ne":
-        return series != value
+        return cast(pd.Series, series != value)
     if operator == "gt":
-        return series > value
+        return cast(pd.Series, series > value)
     if operator == "gte":
-        return series >= value
+        return cast(pd.Series, series >= value)
     if operator == "lt":
-        return series < value
+        return cast(pd.Series, series < value)
     if operator == "lte":
-        return series <= value
+        return cast(pd.Series, series <= value)
     if operator == "contains":
         return series.astype(str).str.contains(str(value), case=False, na=False)
     if operator == "in":
@@ -116,7 +116,7 @@ def excel_filter(
     if frame.empty:
         return []
     result = frame[_mask(frame.iloc[:, column - 1], operator, value)]
-    return [list(frame.columns)] + cast(list[list[Any]], result.where(pd.notna(result), None).values.tolist())
+    return [list(frame.columns)] + result.where(pd.notna(result), None).values.tolist()
 
 
 @mcp.tool()

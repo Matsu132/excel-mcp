@@ -10,7 +10,7 @@ import uuid
 from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from openpyxl import load_workbook
 from openpyxl.utils.cell import range_boundaries
@@ -131,7 +131,7 @@ class Audit:
 
 def rows(ws: Any, ref: str | None, max_rows: int) -> list[list[Any]]:
     if ref:
-        min_col, min_row, max_col, max_row = range_boundaries(ref)
+        min_col, min_row, max_col, max_row = cast(tuple[int, int, int, int], range_boundaries(ref))
     else:
         min_col, min_row, max_col, max_row = 1, 1, ws.max_column, min(ws.max_row, max_rows)
     return [
