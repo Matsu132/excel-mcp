@@ -1,0 +1,2 @@
+"""Safe Excel MCP server."""
+
