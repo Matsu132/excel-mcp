@@ -17,3 +17,6 @@ EXCEL_MCP_WORKSPACE=/path/to/workspace uv run excel-mcp
 
 The MCP server uses the official Python SDK's `FastMCP` and `@mcp.tool()` API.
 
+## SDK v2 migration decision
+
+The server currently pins `mcp>=1.20,<2` because the implementation uses the v1 `FastMCP` API. The official SDK v2 line is now stable and changes the minimal server entry point to `MCPServer`; migration should be a separate compatibility change after validating transport behavior and client interoperability. The Excel application and infrastructure layers are intentionally independent of this adapter, so the migration is limited to `server.py`, startup wiring and MCP integration tests.
