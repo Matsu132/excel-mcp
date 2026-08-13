@@ -1,6 +1,9 @@
 from pathlib import Path
+
 import openpyxl
+
 from excel_mcp.infrastructure import WorkbookStore, Workspace, sha256
+
 
 def make_book(path: Path) -> None:
     wb = openpyxl.Workbook()
@@ -12,6 +15,7 @@ def make_book(path: Path) -> None:
     ws.append(["East", 5])
     wb.save(path)
 
+
 def test_commit_creates_backup_and_reopens(tmp_path: Path):
     path = tmp_path / "book.xlsx"
     make_book(path)
@@ -20,6 +24,7 @@ def test_commit_creates_backup_and_reopens(tmp_path: Path):
     store.commit(path, before, lambda wb: setattr(wb["Sales"]["B2"], "value", 99))
     assert openpyxl.load_workbook(path, data_only=False)["Sales"]["B2"].value == 99
     assert list(tmp_path.glob("book.xlsx.bak-*"))
+
 
 def test_hash_mismatch_does_not_replace(tmp_path: Path):
     path = tmp_path / "book.xlsx"

@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: excel-mcp
+Version: 0.1.0
+Summary: Safe Excel workbook operations exposed through MCP
+Requires-Python: >=3.12
+Requires-Dist: mcp<2,>=1.28
+Requires-Dist: pydantic>=2.7
+Requires-Dist: openpyxl>=3.1
+Requires-Dist: pandas>=2.2
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.23; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"
+Requires-Dist: mypy>=1.11; extra == "dev"

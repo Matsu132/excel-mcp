@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = ["mcp>=1.28,<2", "pydantic>=2.7", "openpyxl>=3.1", "pandas>=2.2"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pytest-asyncio>=0.23", "ruff>=0.6", "mypy>=1.11"]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "ruff>=0.6", "mypy>=1.11", "types-openpyxl", "pandas-stubs"]
 
 [project.scripts]
 excel-mcp = "excel_mcp.server:main"
