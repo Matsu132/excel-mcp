@@ -199,7 +199,8 @@ def excel_preview_write(
 
 
 def _apply(wb: Any, item: dict[str, Any]) -> None:
-    ws = wb[item["sheet"]]
+    sheet_name = item["sheet"]
+    ws = wb[sheet_name] if sheet_name in wb.sheetnames else wb.create_sheet(sheet_name)
     if item["cell"]:
         for i, row in enumerate(item["values"]):
             for j, val in enumerate(row):
