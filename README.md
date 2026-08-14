@@ -2,6 +2,12 @@
 
 An MCP server for safe `.xlsx` inspection and controlled workbook writes.
 
+## Directory listing
+
+This project is also listed in the MCP directory:
+
+- [Matsu132 Excel MCP on m8ven.ai](https://m8ven.ai/mcp/matsu132-excel-mcp-8ifowd)
+
 ## Status
 
 This is an MVP. It supports workbook inspection, sheet/schema discovery, reads, search, simple filtering and numeric aggregation, plus preview-based writes. Writes are guarded by workspace confinement, SHA-256 compare-and-swap, a per-workbook lock, backup, temporary-file save, re-open verification, atomic replacement and JSONL audit logging.
